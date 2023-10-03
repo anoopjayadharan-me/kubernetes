@@ -35,7 +35,7 @@ Name of the storage backend to use (zfs, ceph, btrfs, dir, lvm) [default=zfs]: d
 systemctl status snap.lxd.daemon
 systemctl start snap.lxd.daemon
 
-git clone <repo link>
+git clone  https://github.com/Anoopdharan1/kubernetes
 chmod 775 kubelx
 
 ./kubelx provision
@@ -79,6 +79,7 @@ Add entry for kmaster in the /etc/hosts file
 ping kmaster
 
 curl -LO https://dl.k8s.io/release/v1.24.0/bin/linux/amd64/kubectl
+
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 ##### Create .kube directory
@@ -93,3 +94,5 @@ kubectl get node
 
 ### Get a shell to the container
 kubectl exec --stdin --tty <podname> -- /bin/bash
+
+
