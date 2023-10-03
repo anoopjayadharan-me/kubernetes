@@ -1,11 +1,7 @@
 # kubernetes
 
-#######################################################################
-Execute the below steps on the VM once it is set up using vagrant file
-#######################################################################
-
 #### Setting up K8s Cluster using LXC/LXD 
-**Note:** For development purpose and not recommended for Production use. Tested on Ubuntu 20.04 k8s version 1.23 and 1.24
+**Note:** For development purpose and not recommended for Production use. Tested on Ubuntu 20.04 and kubernetes version 1.23 and 1.24
 
 ### Verify the system details kernel, memory and cpu 
 uname -a
