@@ -31,6 +31,7 @@ logout
 lxd init
 
 **Provide default option for all except this:**
+
 Name of the storage backend to use (zfs, ceph, btrfs, dir, lvm) [default=zfs]: dir
 
 ### Start the service if not running
