@@ -65,6 +65,7 @@ kubectl get all
 curl -I <nodeip>:<nodeport>
 
 ** nodeip can be found using command "kubectl get nodes -o wide"
+
 ** nodeport can be found using command "kubectl get svc -o wide"
 
 ##### We can access nginx.. !!!
