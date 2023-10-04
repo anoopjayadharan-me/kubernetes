@@ -10,28 +10,36 @@ nproc
 
 ### Verify LXC/LXD is installed
 which lxc
+
 which lxd
 
 ### Install LXD
 sudo apt update
+
 sudo snap install lxd
+
 systemctl status snap.lxd.daemon
 
 ### Add vagrant user to the group
 sudo adduser vagrant lxd
+
 sudo adduser vagrant sudo
+
 logout
 
 ### Initialize LXD
 lxd init
+
 **Provide default option for all except this:**
 Name of the storage backend to use (zfs, ceph, btrfs, dir, lvm) [default=zfs]: dir
 
 ### Start the service if not running
 systemctl status snap.lxd.daemon
+
 systemctl start snap.lxd.daemon
 
 git clone  https://github.com/Anoopdharan1/kubernetes
+
 chmod 775 kubelx
 
 ./kubelx provision
@@ -49,7 +57,9 @@ kubectl cluster-info
 
 #### Verifying Nodes
 kubectl get nodes
+
 kubectl get nodes -o wide
+
 kubectl get pods -n kube-system
 
 #### Let's deploy sample nginx 
