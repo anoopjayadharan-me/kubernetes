@@ -62,7 +62,7 @@ kubectl get all
 
 #### Try accessing Nginx through any of the worker node's IP address
 
-curl -I <nodeip>:<nodeport>
+curl -I nodeip:nodeport
 
 ** nodeip can be found using command "kubectl get nodes -o wide"
 
