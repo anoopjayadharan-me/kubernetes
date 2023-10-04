@@ -72,6 +72,7 @@ curl -I <nodeip>:<nodeport>
 #### To access k8s cluster without execing into kmaster node
 ### On Vagrant VM:
 Add entry for kmaster in the /etc/hosts file
+
 ping kmaster
 
 curl -LO https://dl.k8s.io/release/v1.24.0/bin/linux/amd64/kubectl
@@ -83,6 +84,7 @@ mkdir $HOME/.kube
 
 ##### copy config from kmaster into .kube directory
 lxc file pull kmaster/etc/kubernetes/admin.conf  ~/.kube/config
+
 ls -l ~/.kube
 
 ##### Try to access k8s cluster without execing into kmaster node
