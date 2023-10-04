@@ -77,22 +77,22 @@ sudo systemctl enable kubelet >/dev/null 2>&1
 if [[ $(hostname) =~ .*master.* ]]
 then
 
-  echo "[TASK 7] Pull required containers"
+  echo "[TASK 8] Pull required containers"
   kubeadm config images pull --cri-socket /run/containerd/containerd.sock --kubernetes-version v1.24.0 >/dev/null 2>&1
 
-  echo "[TASK 8] Initialize Kubernetes Cluster v1.24.0"
+  echo "[TASK 9] Initialize Kubernetes Cluster v1.24.0"
   kubeadm init   --pod-network-cidr=10.244.0.0/16   --upload-certs --kubernetes-version=v1.24.0  --control-plane-endpoint=$(hostname) --ignore-preflight-errors=all  --cri-socket /run/containerd/containerd.sock >> /root/kubeinit.log 2>&1
 
-  echo "[TASK 9] Copy kube admin config to root user .kube directory"
+  echo "[TASK 10] Copy kube admin config to root user .kube directory"
   mkdir -p $HOME/.kube
   cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   chown $(id -u):$(id -g) $HOME/.kube/config  
   export KUBECONFIG=/etc/kubernetes/admin.conf
 
-  echo "[TASK 10] Deploy Flannel network"
+  echo "[TASK 11] Deploy Flannel network"
   kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml > /dev/null 2>&1
 
-  echo "[TASK 11] Generate and save cluster join command to /joincluster.sh"
+  echo "[TASK 12] Generate and save cluster join command to /joincluster.sh"
   joinCommand=$(kubeadm token create --print-join-command 2>/dev/null) 
   echo "$joinCommand --ignore-preflight-errors=all" > /joincluster.sh
 
@@ -104,7 +104,7 @@ fi
 
 if [[ $(hostname) =~ .*worker.* ]]
 then
-  echo "[TASK 7] Join node to Kubernetes Cluster"
+  echo "[TASK 8] Join node to Kubernetes Cluster"
   apt install -y sshpass >/dev/null 2>&1
   sshpass -p "kubeadmin" scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no kmaster.lxd:/joincluster.sh /joincluster.sh 2>/tmp/joincluster.log
   bash /joincluster.sh >> /tmp/joincluster.log 2>&1
