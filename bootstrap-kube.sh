@@ -9,8 +9,8 @@ apt install -y net-tools curl ssh software-properties-common >/dev/null 2>&1
 echo "[TASK 1] Install containerd runtime"
 apt update  >/dev/null 2>&1
 apt install -y containerd apt-transport-https >/dev/null 2>&1
-mkdir /etc/containerd
-containerd config default > /etc/containerd/config.toml
+mkdir /etc/containerd >/dev/null 2>&1
+containerd config default > /etc/containerd/config.toml >/dev/null 2>&1
 systemctl restart containerd
 systemctl enable containerd >/dev/null 2>&1
 
