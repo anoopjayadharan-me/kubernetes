@@ -9,17 +9,21 @@ apt install -y net-tools curl ssh software-properties-common >/dev/null 2>&1
 echo "[TASK 1] Install containerd runtime"
 apt update  >/dev/null 2>&1
 apt install -y containerd apt-transport-https >/dev/null 2>&1
-mkdir /etc/containerd >/dev/null 2>&1
-containerd config default > /etc/containerd/config.toml >/dev/null 2>&1
+sudo install -m 0755 -d /etc/apt/keyrings >/dev/null 2>&1
+mkdir /etc/containerd
+containerd config default > /etc/containerd/config.toml
 systemctl restart containerd
 systemctl enable containerd >/dev/null 2>&1
 
 echo "[TASK 2] Add apt repo for kubernetes"
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - >/dev/null 2>&1
-apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main" >/dev/null 2>&1
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg >/dev/null 2>&1
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg >/dev/null 2>&1
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list >/dev/null 2>&1
 
-echo "[TASK 3] Install Kubernetes components v1.24.0-00 (kubeadm, kubelet and kubectl)"
-apt -y install vim git curl wget kubelet=1.24.0-00 kubeadm=1.24.0-00 kubectl=1.24.0-00 >/dev/null 2>&1
+echo "[TASK 3] Installing kubeadm, kubelet and kubectl"
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg >/dev/null 2>&1
+sudo apt update >/dev/null 2>&1
+sudo apt-get install -y kubelet kubeadm kubectl >/dev/null 2>&1
 sudo apt-mark hold kubelet kubeadm kubectl > /dev/null 2>&1
 echo 'KUBELET_EXTRA_ARGS="--fail-swap-on=false"' > /etc/default/kubelet
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
@@ -53,7 +57,6 @@ echo 'net.bridge.bridge-nf-call-ip6tables = 1' | sudo tee /etc/sysctl.d/kubernet
 echo 'net.bridge.bridge-nf-call-iptables = 1' | sudo tee /etc/sysctl.d/kubernetes.conf > /dev/null 2>&1
 echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/kubernetes.conf > /dev/null 2>&1
 
-sysctl --system >/dev/null 2>&1
 if (systemctl -q is-active containerd)
   then
       rm /etc/containerd/config.toml
@@ -78,10 +81,10 @@ if [[ $(hostname) =~ .*master.* ]]
 then
 
   echo "[TASK 8] Pull required containers"
-  kubeadm config images pull --cri-socket /run/containerd/containerd.sock --kubernetes-version v1.24.0 >/dev/null 2>&1
+  kubeadm config images pull --cri-socket /run/containerd/containerd.sock  >/dev/null 2>&1
 
-  echo "[TASK 9] Initialize Kubernetes Cluster v1.24.0"
-  kubeadm init   --pod-network-cidr=10.244.0.0/16   --upload-certs --kubernetes-version=v1.24.0  --control-plane-endpoint=$(hostname) --ignore-preflight-errors=all  --cri-socket /run/containerd/containerd.sock >> /root/kubeinit.log 2>&1
+  echo "[TASK 9] Initialize Kubernetes Cluster"
+  kubeadm init   --pod-network-cidr=10.244.0.0/16   --upload-certs   --control-plane-endpoint=$(hostname) --ignore-preflight-errors=all  --cri-socket /run/containerd/containerd.sock >> /root/kubeinit.log 2>&1
 
   echo "[TASK 10] Copy kube admin config to root user .kube directory"
   mkdir -p $HOME/.kube
