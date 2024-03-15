@@ -1,7 +1,7 @@
 # kubernetes
 
 ### Setting up K8s Cluster using LXC/LXD 
-**Note:** For development purpose and not recommended for Production use. Tested on Ubuntu 20.04 and kubernetes version 1.23 and 1.24
+**Note:** For development purpose and not recommended for Production use. Tested on Ubuntu 20.04 and kubernetes version 1.28
 
 ### Verify the system details kernel, memory and cpu 
 uname -a
@@ -113,7 +113,7 @@ sudo apt-get install -y bash-completion
 
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 
-source ~/.bashrc
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 
-alias k=kubectl
-complete -o default -F __start_kubectl k
+source ~/.bashrc
