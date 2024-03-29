@@ -1,12 +1,12 @@
 # Setting up K8s Cluster using LXC/LXD
 
-Tested on Ubuntu 20.04 and kubernetes version 1.28
+Tested on Ubuntu 20.04.6 LTS and kubernetes version 1.28
 
 **Note:** For development purpose and not recommended for Production use. 
 
 ### Prerequisites
 
-An Ubuntu 20.04 VM with 4 vCPU and 10GB RAM
+An Ubuntu 20.04.6 LTS VM with 4 vCPU and 10GB RAM
 
 If you have not setup the VM yet please refer to the vagrant repo [link to repo](https://github.com/Anoopdharan1/vagrant)
 
