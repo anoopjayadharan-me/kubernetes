@@ -143,7 +143,7 @@ curl -I <nodeip:nodeport>
 ### We can access nginx.. !!!
 
 #### To access k8s cluster without execing into kmaster node
-### On the Host Machine:
+### On the Ubuntu Host Machine:
 
 ```
 Add entry for kmaster in the /etc/hosts file
