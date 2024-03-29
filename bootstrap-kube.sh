@@ -15,12 +15,12 @@ containerd config default > /etc/containerd/config.toml
 systemctl restart containerd
 systemctl enable containerd >/dev/null 2>&1
 
-echo "[TASK 2] Add apt repo for kubernetes"
+echo "[TASK 2] Add apt repo for kubernetes v1.28"
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg >/dev/null 2>&1
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg >/dev/null 2>&1
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list >/dev/null 2>&1
 
-echo "[TASK 3] Installing kubeadm, kubelet and kubectl"
+echo "[TASK 3] Installing kubeadm, kubelet and kubectl v1.28.8"
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg >/dev/null 2>&1
 sudo apt update >/dev/null 2>&1
 sudo apt-get install -y kubelet kubeadm kubectl >/dev/null 2>&1
@@ -92,8 +92,8 @@ then
   chown $(id -u):$(id -g) $HOME/.kube/config  
   export KUBECONFIG=/etc/kubernetes/admin.conf
 
-  echo "[TASK 11] Deploy Flannel network"
-  kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml > /dev/null 2>&1
+  echo "[TASK 11] Deploy Weave network v1.28"
+  kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.28/net.yaml
 
   echo "[TASK 12] Generate and save cluster join command to /joincluster.sh"
   joinCommand=$(kubeadm token create --print-join-command 2>/dev/null) 
