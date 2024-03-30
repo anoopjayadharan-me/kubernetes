@@ -71,7 +71,7 @@ systemctl status snap.lxd.daemon
 
 systemctl start snap.lxd.daemon
 
-git clone [link to repo](https://github.com/Anoopdharan1/kubernetes)
+git clone [kubernetes](https://github.com/Anoopdharan1/kubernetes)
 
 chmod 775 kubelx
 
