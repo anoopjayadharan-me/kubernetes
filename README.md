@@ -64,7 +64,7 @@ Name of the storage backend to use (zfs, ceph, btrfs, dir, lvm) [default=zfs]: d
 
 ```
 
-### Start the service if not running
+### Start the service if not running and clone the Repo
 
 ```
 systemctl status snap.lxd.daemon
