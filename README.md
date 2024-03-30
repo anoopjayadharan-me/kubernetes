@@ -8,7 +8,7 @@ Tested on Ubuntu 20.04.6 LTS and kubernetes version 1.28
 
 An Ubuntu 20.04.6 LTS VM with 4 vCPU and 10GB RAM
 
-If you have not setup the VM yet please refer to the vagrant repo [link to repo](https://github.com/Anoopdharan1/vagrant)
+If you have not setup the VM yet please refer to the vagrant repo [vagrant](https://github.com/Anoopdharan1/vagrant)
 
 ### Verify the system details kernel, memory and cpu 
 
