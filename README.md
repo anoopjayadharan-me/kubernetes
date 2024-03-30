@@ -189,14 +189,10 @@ kubectl exec -it <podname> -- /bin/bash
 #### Enable kubectl Autocompletion in Bash
 
 ```
-sudo apt-get install -y bash-completion
+source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 
-echo "source <(kubectl completion bash)" >> ~/.bashrc
-
-echo 'alias k=kubectl' >>~/.bashrc
-
-echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
-
-source ~/.bashrc
+alias k=kubectl
+complete -o default -F __start_kubectl k
 
 ```
