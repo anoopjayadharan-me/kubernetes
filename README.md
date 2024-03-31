@@ -191,7 +191,9 @@ kubectl exec -it <podname> -- /bin/bash
 ```
 source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+
 source ~/.bashrc
+
 alias k=kubectl
 complete -o default -F __start_kubectl k
 
